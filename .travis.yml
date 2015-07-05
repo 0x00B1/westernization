@@ -1,5 +1,4 @@
-compiler:
-  - clang
-  - gcc
-language:
-  - cpp
+language: python
+python:
+  - 3.4
+
