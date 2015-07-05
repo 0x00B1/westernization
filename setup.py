@@ -1,7 +1,5 @@
 __author__ = 'Allen Goodman'
 
-import os
-import os.path
 try:
     from setuptools import setup
 except ImportError:
@@ -12,13 +10,16 @@ try:
 except ImportError:
     command = {}
 else:
-    class pytest(test):
-        def finalize_options(self):
-            test.finalize_options(self)
+    class PyTest(test):
+        def __init__(self, dist, **kw):
+            super().__init__(dist, **kw)
 
             self.test_args = []
 
             self.test_suite = []
+
+        def finalize_options(self):
+            test.finalize_options(self)
 
         def run_tests(self):
             from pytest import main
@@ -27,7 +28,7 @@ else:
 
             raise SystemExit(errno)
 
-    command = {'test': pytest}
+    command = {'test': PyTest}
 
 setup(
     name='westernization',
